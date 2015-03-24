@@ -1,9 +1,18 @@
 <html>
   <body>
-    <% html_form_for(@command, "/invoice", :post) do |form| %>
+    <% html_form_for(@command, "/", :post) do |form| %>
       <fieldset>
         <% form.fieldset(@command.class.to_s.underscore.to_sym) do |f| %>
-          <%= f.raw_input(:amount) %>
+          <div>
+            <label for="<%= f.path_for(:amount) %>">Amount</label>
+            <%= f.raw_input(:amount) %>
+          </div>
+          <div>
+            <label for="<%= f.path_for(:recipient) %>">Recipient</label>
+            <%= f.raw_input(:recipient) %>
+          </div>
+
+          <input type="submit" value="Save!">
         <% end %>
       </fieldset>
     <% end %>
