@@ -1,0 +1,11 @@
+<html>
+  <body>
+    <% html_form_for(@command, "/invoice", :post) do |form| %>
+      <fieldset>
+        <% form.fieldset(@command.class.to_s.underscore.to_sym) do |f| %>
+          <%= f.raw_input(:amount) %>
+        <% end %>
+      </fieldset>
+    <% end %>
+  </body>
+</html>
