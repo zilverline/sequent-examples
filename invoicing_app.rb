@@ -1,6 +1,3 @@
-require "bundler"
-Bundler.setup
-
 require 'sinatra/base'
 require 'sequent/sequent'
 require_relative 'invoices/commands'
@@ -9,12 +6,14 @@ require_relative 'invoices/command_handlers'
 
 class InvoicingApp < Sinatra::Base
 
+  use ActiveRecord::ConnectionAdapters::ConnectionManagement
+
   enable :sessions
 
   TENANT_ID = "sequent_company"
 
   before do
-    event_store = Sequent::Core::EventStore.new(
+    event_store = Sequent::Core::TenantEventStore.new(
       Sequent::Core::EventRecord,
       [InvoiceRecordEventHandler, InvoiceDashboardEventHandler].map(&:new)
     )

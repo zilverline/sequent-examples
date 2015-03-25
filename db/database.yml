@@ -1,0 +1,12 @@
+database: &database
+  adapter: postgresql
+  host: localhost
+  port: 5432
+  timeout: 5000
+  username: sequent
+  password: sequent
+  database: sequent_db
+
+development:
+  <<: *database
+  pool: 5

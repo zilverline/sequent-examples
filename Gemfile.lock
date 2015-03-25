@@ -33,12 +33,14 @@ GEM
     minitest (4.7.5)
     multi_json (1.11.0)
     oj (2.10.4)
+    parallel (1.4.1)
     pg (0.18.1)
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
     rack_csrf (2.5.0)
       rack (>= 1.1.0)
+    rake (10.4.2)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -51,5 +53,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  parallel
+  rake
   sequent!
   sinatra (~> 1.4.5)
