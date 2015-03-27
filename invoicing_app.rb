@@ -14,7 +14,7 @@ class InvoicingApp < Sinatra::Base
 
   before do
     event_store = Sequent::Core::TenantEventStore.new(
-      Sequent::Core::EventRecord,
+      EventRecord,
       [InvoiceRecordEventHandler, InvoiceDashboardEventHandler].map(&:new)
     )
     @command_service = Sequent::Core::CommandService.new(
@@ -33,7 +33,9 @@ class InvoicingApp < Sinatra::Base
   end
 
   post '/' do
-    @command = CreateInvoiceCommand.from_params(params)
+    @command = CreateInvoiceCommand
+                 .from_params(params[:create_invoice_command])
+                 .merge!(organization_id: TENANT_ID)
     execute_command @command, :index do
       # success
       redirect back

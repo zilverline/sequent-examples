@@ -1,3 +1,6 @@
+require "bundler"
+Bundler.setup
+
 require_relative 'db/database'
 require_relative 'db/view_model'
 
@@ -36,7 +39,7 @@ namespace :sequent do
     Database.establish_connection(current_env)
     require_relative 'db/version'
     Database.drop_view_schema(SCHEMA_VERSION) if Database.schema_exists("view_#{SCHEMA_VERSION}")
-    Rake::Task["upgrade"].execute
+    Rake::Task["sequent:upgrade"].execute
   end
 
   desc 'Upgrade sequent to new version'

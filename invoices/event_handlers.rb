@@ -10,7 +10,7 @@ class InvoiceRecordEventHandler < Sequent::Core::BaseEventHandler
       sequence_number: event.sequence_number,
       organization_id: event.organization_id,
       amount: event.amount,
-      recipient: event.recipient
+      recipient_name: event.recipient.name
     )
   end
 
@@ -27,7 +27,7 @@ class InvoiceDashboardEventHandler < Sequent::Core::BaseEventHandler
   on InvoiceCreatedEvent do |event|
     totals = get_record(InvoiceTotalsRecord, {organization_id: event.organization_id})
     if totals.present?
-      update_record(InvoiceTotalsRecord, event) do |record|
+      update_record(InvoiceTotalsRecord, event, {organization_id: event.organization_id}) do |record|
         record.total_amount += event.amount
         record.total_invoice_count += 1
       end

@@ -1,5 +1,6 @@
 <html>
   <body>
+    <%= @command.validation_errors %>
     <% html_form_for(@command, "/", :post) do |form| %>
       <fieldset>
         <% form.fieldset(@command.class.to_s.underscore.to_sym) do |f| %>
@@ -8,13 +9,25 @@
             <%= f.raw_input(:amount) %>
           </div>
           <div>
-            <label for="<%= f.path_for(:recipient) %>">Recipient</label>
-            <%= f.raw_input(:recipient) %>
+            <% f.nested(:recipient) do |r| %>
+              <label for="<%= r.path_for(:name) %>">Recipient</label>
+              <%= r.raw_input(:name) %>
+            <% end %>
           </div>
+          <%= f.raw_hidden(:aggregate_id) %>
 
           <input type="submit" value="Save!">
         <% end %>
       </fieldset>
+    <% end %>
+
+    <br><br>
+    <h1>Number of invoices: <%= InvoiceTotalsRecord.first.try(:total_invoice_count) %></h1>
+    <h1>Total amount of invoices: <%= InvoiceTotalsRecord.first.try(:total_amount) %></h1>
+
+    <br><br>
+    <% InvoiceRecord.all.each do |invoice| %>
+      <%= invoice.recipient_name %><br>
     <% end %>
   </body>
 </html>

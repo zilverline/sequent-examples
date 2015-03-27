@@ -1,7 +1,7 @@
 require_relative 'value_objects'
 
 class InvoiceCreatedEvent < Sequent::Core::CreateEvent
-  attrs amount: Integer, recipient: String
+  attrs amount: Integer, recipient: Recipient
 end
 
 class InvoicePaidEvent < Sequent::Core::TenantEvent
