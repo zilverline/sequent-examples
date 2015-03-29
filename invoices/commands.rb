@@ -16,6 +16,7 @@ class CreateInvoiceCommand < Sequent::Core::TenantCommand
   validates_presence_of :recipient
 
   # todo: move to sequent
+  # sequent should take care of converting to the correct types.
   after_validation :parse_values
 
   def parse_values

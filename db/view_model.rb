@@ -13,8 +13,10 @@ class ViewModel
       session = Sequent::Core::RecordSessions::ReplayEventsSession.new
       ActiveRecord::Base.connection.reconnect!
       event_store = Sequent::Core::TenantEventStore.new(
-        EventRecord,
-        [InvoiceRecordEventHandler, InvoiceDashboardEventHandler].map(&:new)
+        Sequent::Core::EventStoreConfiguration.new(
+          EventRecord,
+          [InvoiceRecordEventHandler, InvoiceDashboardEventHandler].map(&:new)
+        )
       )
       begin
         event_store.replay_events_for(id)

@@ -7,22 +7,12 @@ require_relative 'invoices/command_handlers'
 class InvoicingApp < Sinatra::Base
 
   use ActiveRecord::ConnectionAdapters::ConnectionManagement
-
   enable :sessions
 
-  TENANT_ID = "sequent_company"
+  set :sequent_config_dir, root
+  register Sequent::Web::Sinatra::App
 
-  before do
-    event_store = Sequent::Core::TenantEventStore.new(
-      EventRecord,
-      [InvoiceRecordEventHandler, InvoiceDashboardEventHandler].map(&:new)
-    )
-    @command_service = Sequent::Core::CommandService.new(
-      event_store,
-      [InvoiceCommandHandler],
-      Sequent::Core::Transactions::ActiveRecordTransactionProvider.new
-    )
-  end
+  TENANT_ID = "sequent_company"
 
   get '/' do
     @command = CreateInvoiceCommand.new(
@@ -42,8 +32,5 @@ class InvoicingApp < Sinatra::Base
     end
   end
 
-
-  helpers Sequent::Web::Sinatra::FormHelpers
-  helpers Sequent::Web::Sinatra::SimpleCommandServiceHelpers
-  helpers Sequent::Core::Helpers::UuidHelper
 end
+
