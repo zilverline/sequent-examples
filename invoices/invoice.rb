@@ -1,4 +1,4 @@
-require 'sequent/sequent'
+require 'sequent'
 require_relative 'value_objects'
 
 class Invoice < Sequent::Core::TenantAggregateRoot

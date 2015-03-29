@@ -4,7 +4,7 @@ require_relative 'version'
 require 'yaml'
 require 'erb'
 require 'active_record'
-require 'sequent/sequent'
+require 'sequent'
 
 module Database
   class << self

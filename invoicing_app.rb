@@ -1,5 +1,5 @@
 require 'sinatra/base'
-require 'sequent/sequent'
+require 'sequent'
 require_relative 'invoices/commands'
 require_relative 'invoices/event_handlers'
 require_relative 'invoices/command_handlers'
