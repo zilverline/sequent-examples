@@ -36,30 +36,32 @@ namespace :sequent do
 
   desc 'rebuilds the view model from events'
   task :rebuild do
-    Database.establish_connection(current_env)
     require_relative 'db/version'
-    Database.drop_view_schema(SCHEMA_VERSION) if Database.schema_exists("view_#{SCHEMA_VERSION}")
+    database = Database.for_active_record(current_env, SCHEMA_VERSION)
+    database.establish_connection
+    database.drop_view_schema(SCHEMA_VERSION) if database.schema_exists("view_#{SCHEMA_VERSION}")
     Rake::Task["sequent:upgrade"].execute
   end
 
   desc 'Upgrade sequent to new version'
   task :upgrade do
-    Database.establish_connection(current_env)
+    database = Database.for_active_record current_env, SCHEMA_VERSION
+    database.establish_connection
     begin
 
-      if Database.schema_exists("event_store")
-        Database.migrate current_env
+      if database.schema_exists("event_store")
+        database.migrate
       else
-        Database.load_freemle
+        database.load_event_store(File.expand_path("../db/event_store.rb", __FILE__))
       end
 
-      unless Database.schema_exists("view_#{SCHEMA_VERSION}")
-        Database.load_view
-        Database.init ENV["RACK_ENV"]
+      unless database.schema_exists("view_#{SCHEMA_VERSION}")
+        database.load_view(File.expand_path("../db/view_schema.rb", __FILE__))
+        database.init
         ViewModel.rebuild_view_model_from_events
       end
     ensure
-      ActiveRecord::Base.clear_active_connections!
+      database.clear_active_connections!
     end
 
   end
