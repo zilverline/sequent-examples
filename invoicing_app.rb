@@ -26,9 +26,13 @@ class InvoicingApp < Sinatra::Base
     @command = CreateInvoiceCommand
                  .from_params(params[:create_invoice_command])
                  .merge!(organization_id: TENANT_ID)
-    execute_command @command, :index do
-      # success
-      redirect back
+    execute_command @command do |errors|
+      if errors
+        erb :index
+      else
+        redirect back
+      end
+
     end
   end
 

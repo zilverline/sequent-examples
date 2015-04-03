@@ -1,7 +1,7 @@
 require 'yaml'
 require 'erb'
 require 'active_record'
-require 'sequent'
+require 'sequent-sinatra'
 
 class Database
 
