@@ -61,7 +61,7 @@ class Database
 
   def init
     unless schema_exists("view_#{@schema_version}")
-      raise "view schema version #{@schema_version} does not exists, use #{Database.class}.load_view to create the latest view schema"
+      raise "view schema version #{@schema_version} does not exists, use #{Database}.load_view to create the latest view schema"
     end
 
     set_schema_search_path_to_version SCHEMA_VERSION

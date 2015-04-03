@@ -45,6 +45,7 @@ namespace :sequent do
 
   desc 'Upgrade sequent to new version'
   task :upgrade do
+    require_relative 'db/version'
     database = Database.for_active_record current_env, SCHEMA_VERSION
     database.establish_connection
     begin

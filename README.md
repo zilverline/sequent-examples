@@ -9,6 +9,7 @@ as event store and view model store.
     cd sequent-example
     bundle install
     rake db:create # creates the sequent database
+    rake sequent:upgrade
     rackup -p 4567
     
 Browse to [http://localhost:4567](http://localhost:4567)
