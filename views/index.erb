@@ -1,33 +1,59 @@
+<!DOCTYPE html>
 <html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  </head>
   <body>
-    <%= @command.validation_errors %>
-    <% html_form_for(@command, "/", :post) do |form| %>
-      <fieldset>
-        <% form.fieldset(@command.class.to_s.underscore.to_sym) do |f| %>
-          <div>
-            <label for="<%= f.path_for(:amount) %>">Amount</label>
-            <%= f.raw_input(:amount) %>
-          </div>
-          <div>
-            <% f.nested(:recipient) do |r| %>
-              <label for="<%= r.path_for(:name) %>">Recipient</label>
-              <%= r.raw_input(:name) %>
+    <div class="container">
+      <div class="row">
+
+        <div class="jumbotron">
+          <h1>Sequent Example Application</h1>
+
+          <p class="lead">
+            This is an example CQRS/Event Sourced based application using the
+            <a target="_blank" href="https://github.com/zilverline/sequent-sinatra">sequent-sinitra</a> gem.
+          </p>
+
+          <p>
+            <a class="btn btn-lg btn-success" target="_blank" href="https://github.com/zilverline/sequent" role="button">Read
+              the docs!</a></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <%= @command.validation_errors %>
+        <% html_form_for(@command, "/", :post) do |form| %>
+          <fieldset>
+            <% form.fieldset(@command.class.to_s.underscore.to_sym) do |f| %>
+              <div class="form-group">
+                <label for="<%= f.path_for(:amount) %>">Amount</label>
+                <%= f.raw_input(:amount, class: "form-control") %>
+              </div>
+              <div class="form-group">
+                <% f.nested(:recipient) do |r| %>
+                  <label for="<%= r.path_for(:name) %>">Recipient</label>
+                  <%= r.raw_input(:name, class: "form-control") %>
+                <% end %>
+              </div>
+              <%= f.raw_hidden(:aggregate_id) %>
+
+              <input class="btn btn-lg btn-primary" type="submit" value="Add Invoice!">
             <% end %>
-          </div>
-          <%= f.raw_hidden(:aggregate_id) %>
-
-          <input type="submit" value="Save!">
+          </fieldset>
         <% end %>
-      </fieldset>
-    <% end %>
 
-    <br><br>
-    <h1>Number of invoices: <%= InvoiceTotalsRecord.first.try(:total_invoice_count) %></h1>
-    <h1>Total amount of invoices: <%= InvoiceTotalsRecord.first.try(:total_amount) %></h1>
+        <br><br>
 
-    <br><br>
-    <% InvoiceRecord.all.each do |invoice| %>
-      <%= invoice.recipient_name %><br>
-    <% end %>
+        <h1>Number of invoices: <%= InvoiceTotalsRecord.first.try(:total_invoice_count) %></h1>
+
+        <h1>Total amount of invoices: <%= InvoiceTotalsRecord.first.try(:total_amount) %></h1>
+
+        <br><br>
+        <% InvoiceRecord.all.each do |invoice| %>
+          <%= invoice.recipient_name %><br>
+        <% end %>
+      </div>
+    </div>
   </body>
 </html>
