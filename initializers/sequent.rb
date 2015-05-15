@@ -3,19 +3,25 @@ require_relative '../invoices/event_handlers'
 require_relative '../invoices/command_handlers'
 require 'sequent'
 
-Sequent::Core::CommandService.configure do |command_service_config|
-  # The event store
-  command_service_config.event_store = Sequent::Core::EventStore.configure do |config|
-    config.record_class = EventRecord
-    config.event_handlers = [InvoiceRecordEventHandler, InvoiceDashboardEventHandler].map(&:new)
-  end
+Sequent.configure do |config|
+  ### App configurations
 
-  # The command handler classes.
-  command_service_config.command_handler_classes = [InvoiceCommandHandler]
-
-  # How to handle transactions
-  command_service_config.transaction_provider = Sequent::Core::Transactions::ActiveRecordTransactionProvider.new
+  # Command handler classes
+  config.command_handlers = [InvoiceCommandHandler.new]
 
   # Optional filters, can be used to do for instance security checks.
-  # command_service_config.filters = []
+  config.command_filters = []
+
+  # Event handler classes
+  config.event_handlers = [InvoiceRecordEventHandler.new, InvoiceDashboardEventHandler.new]
+
+
+  #### Configured by default but can be overridden:
+
+  # config.event_store
+  # config.command_service
+  # config.record_class
+
+  # How to handle transactions
+  config.transaction_provider = Sequent::Core::Transactions::ActiveRecordTransactionProvider.new
 end
