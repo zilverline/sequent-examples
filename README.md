@@ -5,8 +5,8 @@ as event store and view model store.
 
 ## Getting started
 
-    git clone https://github.com/zilverline/sequent-example
-    cd sequent-example
+    git clone https://github.com/zilverline/sequent-examples
+    cd sequent-examples
     bundle install
     rake db:create # creates the sequent database
     rake sequent:upgrade
