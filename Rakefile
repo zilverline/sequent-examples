@@ -53,7 +53,8 @@ namespace :sequent do
       if database.schema_exists("event_store")
         database.migrate
       else
-        database.load_event_store(File.expand_path("../db/event_store.rb", __FILE__))
+        event_store_schema = File.expand_path("db/sequent_schema.rb", Bundler.definition.specs["sequent"].first.full_gem_path)
+        database.load_event_store(event_store_schema)
       end
 
       unless database.schema_exists("view_#{SCHEMA_VERSION}")
@@ -67,5 +68,3 @@ namespace :sequent do
 
   end
 end
-
-
