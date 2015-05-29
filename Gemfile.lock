@@ -9,13 +9,14 @@ GIT
 
 GIT
   remote: git://github.com/zilverline/sequent.git
-  revision: 383dc4af5ce12e8274ad8d742752086b8eab17f8
+  revision: 9bb45e709fbd34f44e032b79591124a26919caa8
   specs:
     sequent (0.1.4)
       activemodel (~> 4.0)
       activerecord (~> 4.0)
       oj (~> 2.10)
       pg (~> 0.18)
+      thread_safe (~> 0.3.5)
 
 GEM
   remote: https://rubygems.org/
@@ -37,8 +38,8 @@ GEM
     builder (3.2.2)
     i18n (0.7.0)
     json (1.8.2)
-    minitest (5.6.1)
-    oj (2.12.7)
+    minitest (5.7.0)
+    oj (2.12.8)
     parallel (1.4.1)
     pg (0.18.2)
     rack (1.6.1)
