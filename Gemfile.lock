@@ -7,15 +7,15 @@ GIT
       sequent (~> 0.1)
       sinatra (~> 1.4)
 
-GIT
-  remote: git://github.com/zilverline/sequent.git
-  revision: 383dc4af5ce12e8274ad8d742752086b8eab17f8
+PATH
+  remote: ../sequent
   specs:
     sequent (0.1.4)
       activemodel (~> 4.0)
       activerecord (~> 4.0)
       oj (~> 2.10)
       pg (~> 0.18)
+      thread_safe (~> 0.3.5)
 
 GEM
   remote: https://rubygems.org/
