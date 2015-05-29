@@ -5,11 +5,13 @@ as event store and view model store.
 
 ## Getting started
 
-    git clone https://github.com/zilverline/sequent-examples
-    cd sequent-examples
-    bundle install
-    rake db:create # creates the sequent database
-    rake sequent:upgrade
-    rackup -p 4567
-    
+```sh
+git clone https://github.com/zilverline/sequent-examples
+cd sequent-examples
+bundle install
+rake db:create # creates the sequent database
+rake sequent:upgrade
+rackup -p 4567
+```
+
 Browse to [http://localhost:4567](http://localhost:4567)
