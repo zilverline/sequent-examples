@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Example application for Sequent</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <style type="text/css">
+      .errors {
+        color: red;
+        padding-left: 15px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -12,47 +19,76 @@
 
           <p class="lead">
             This is an example CQRS/Event Sourced based application using the
-            <a target="_blank" href="https://github.com/zilverline/sequent-sinatra">sequent-sinatra</a> gem.
+            <a target="_blank" href="https://github.com/zilverline/sequent">sequent</a> and the <a target="_blank" href="https://github.com/zilverline/sequent-sinatra">sequent-sinatra</a> gem
           </p>
 
           <p>
             <a class="btn btn-lg btn-success" target="_blank" href="https://github.com/zilverline/sequent" role="button">Read
-              the docs!</a></p>
+              the Sequent docs!</a></p>
         </div>
       </div>
 
       <div class="row">
-        <%= @command.validation_errors %>
-        <% html_form_for(@command, "/", :post) do |form| %>
-          <fieldset>
-            <% form.fieldset(@command.class.to_s.underscore.to_sym) do |f| %>
-              <div class="form-group">
-                <label for="<%= f.path_for(:amount) %>">Amount</label>
-                <%= f.raw_input(:amount, class: "form-control") %>
-              </div>
-              <div class="form-group">
-                <% f.nested(:recipient) do |r| %>
-                  <label for="<%= r.path_for(:name) %>">Recipient</label>
-                  <%= r.raw_input(:name, class: "form-control") %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Add invoices</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="errors">
+              <% @command.validation_errors.each do |error| %>
+                <li><%= error.first %> <%= error.last.join(",") %></li>
+              <% end %>
+            </ul>
+            <% html_form_for(@command, "/", :post) do |form| %>
+              <fieldset>
+                <% form.fieldset(@command.class.to_s.underscore.to_sym) do |f| %>
+                  <div class="form-group">
+                    <label for="<%= f.path_for(:amount) %>">Amount</label>
+                    <%= f.raw_input(:amount, class: "form-control") %>
+                  </div>
+                  <div class="form-group">
+                    <% f.nested(:recipient) do |r| %>
+                      <label for="<%= r.path_for(:name) %>">Recipient</label>
+                      <%= r.raw_input(:name, class: "form-control") %>
+                    <% end %>
+                  </div>
+                  <%= f.raw_hidden(:aggregate_id) %>
+
+                  <input class="btn btn-lg btn-primary" type="submit" value="Add Invoice!">
                 <% end %>
-              </div>
-              <%= f.raw_hidden(:aggregate_id) %>
-
-              <input class="btn btn-lg btn-primary" type="submit" value="Add Invoice!">
+              </fieldset>
             <% end %>
-          </fieldset>
-        <% end %>
+          </div>
+        </div>
 
         <br><br>
 
-        <h1>Number of invoices: <%= InvoiceTotalsRecord.first.try(:total_invoice_count) %></h1>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">View state build by the InvoiceDashboardEventHandler</h3>
+          </div>
+          <div class="panel-body">
+            <p>
+              Total number of invoices: <%= InvoiceTotalsRecord.first.try(:total_invoice_count) %>
+            </p>
 
-        <h1>Total amount of invoices: <%= InvoiceTotalsRecord.first.try(:total_amount) %></h1>
-
+            <p>
+              Total amount of invoices: <%= InvoiceTotalsRecord.first.try(:total_amount) %>
+            </p>
+          </div>
+        </div>
         <br><br>
-        <% InvoiceRecord.all.each do |invoice| %>
-          <%= invoice.recipient_name %><br>
-        <% end %>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">View state build by the InvoiceRecordEventHandler</h3>
+          </div>
+          <div class="panel-body">
+            <% InvoiceRecord.all.each do |invoice| %>
+              <%= h invoice.recipient_name %> is invoiced for EUR <%= invoice.amount %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </body>
