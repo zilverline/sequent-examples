@@ -33,7 +33,6 @@ class WebApp < Sinatra::Base
 
   post '/' do
     @command = CreateInvoice.from_params(params[:create_invoice])
-    p command: @command
 
     begin
       Sequent.command_service.execute_commands(@command)
