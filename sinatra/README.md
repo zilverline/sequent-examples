@@ -15,10 +15,4 @@ bundle exec rake view_schema:build
 bundle exec rackup -p 4567
 ```
 
-## Rebuilding the events
-Use `rake sequent:rebuild` to replay all events.
-
-See `db/view_model` for an example on replaying the events in order to rebuild the view model.
-
-
 Browse to [http://localhost:4567](http://localhost:4567)
