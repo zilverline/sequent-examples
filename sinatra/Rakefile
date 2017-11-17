@@ -1,0 +1,56 @@
+require "bundler"
+Bundler.setup
+
+def current_env
+  ENV["RACK_ENV"] ||= "development"
+end
+
+begin
+  require 'sequent/rake/tasks'
+    require_relative 'invoicing_app'
+  Sequent::Rake::Tasks.new({
+    db_config_supplier: InvoicingApp::DB_CONFIG,
+    view_projection: InvoicingApp::VIEW_PROJECTION,
+    event_store_schema: 'event_store',
+    environment: ENV['RACK_ENV'] || 'development'
+  }).register!
+rescue LoadError
+  puts 'Sequent tasks are not available'
+end
+
+# namespace :sequent do
+#
+#   desc 'rebuilds the view model from events'
+#   task :rebuild do
+#     require_relative 'db/version'
+#     database = Database.for_active_record(current_env, SCHEMA_VERSION)
+#     database.establish_connection
+#     database.drop_view_schema(SCHEMA_VERSION) if database.schema_exists("view_#{SCHEMA_VERSION}")
+#     Rake::Task["sequent:upgrade"].execute
+#   end
+#
+#   desc 'Upgrade sequent to new version'
+#   task :upgrade do
+#     require_relative 'db/version'
+#     database = Database.for_active_record current_env, SCHEMA_VERSION
+#     database.establish_connection
+#     begin
+#
+#       if database.schema_exists("event_store")
+#         database.migrate
+#       else
+#         event_store_schema = File.expand_path("db/sequent_schema.rb", Bundler.definition.specs["sequent"].first.full_gem_path)
+#         database.load_event_store(event_store_schema)
+#       end
+#
+#       unless database.schema_exists("view_#{SCHEMA_VERSION}")
+#         database.load_view(File.expand_path("../db/view_schema.rb", __FILE__))
+#         database.init
+#         ViewModel.rebuild_view_model_from_events
+#       end
+#     ensure
+#       database.clear_active_connections!
+#     end
+#
+#   end
+# end

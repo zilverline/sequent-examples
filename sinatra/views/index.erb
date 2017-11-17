@@ -19,7 +19,7 @@
 
           <p class="lead">
             This is an example CQRS/Event Sourced based application using the
-            <a target="_blank" href="https://github.com/zilverline/sequent">sequent</a> and the <a target="_blank" href="https://github.com/zilverline/sequent-sinatra">sequent-sinatra</a> gem
+            <a target="_blank" href="https://github.com/zilverline/sequent">sequent</a> gem
           </p>
 
           <p>
@@ -39,25 +39,22 @@
                 <li><%= error.first %> <%= error.last.join(",") %></li>
               <% end %>
             </ul>
-            <% html_form_for(@command, "/", :post) do |form| %>
+            <form method="post">
               <fieldset>
-                <% form.fieldset(@command.class.to_s.underscore.to_sym) do |f| %>
-                  <div class="form-group">
-                    <label for="<%= f.path_for(:amount) %>">Amount</label>
-                    <%= f.raw_input(:amount, class: "form-control") %>
-                  </div>
-                  <div class="form-group">
-                    <% f.nested(:recipient) do |r| %>
-                      <label for="<%= r.path_for(:name) %>">Recipient</label>
-                      <%= r.raw_input(:name, class: "form-control") %>
-                    <% end %>
-                  </div>
-                  <%= f.raw_hidden(:aggregate_id) %>
+                <div class="form-group">
+                  <label for="amount">Amount</label>
+                  <input class="form-control" type="text" name="create_invoice[amount]" id="amount" value="<%= @command.amount %>">
+                </div>
+                <div class="form-group">
+                  <label for="recipient_name">Recipient</label>
+                  <input class="form-control" type="text" name="create_invoice[recipient][name]" id="recipient_name" value="<%= @command.recipient&.name %>">
+                </div>
+                <input type="hidden" name="create_invoice[aggregate_id]" value="<%= @command.aggregate_id %>">
+                <input type="hidden" name="create_invoice[tenant_id]" value="<%= @command.tenant_id %>">
 
-                  <input class="btn btn-lg btn-primary" type="submit" value="Add Invoice!">
-                <% end %>
+                <input class="btn btn-lg btn-primary" type="submit" value="Add Invoice!">
               </fieldset>
-            <% end %>
+            </form>
           </div>
         </div>
 
@@ -84,9 +81,11 @@
             <h3 class="panel-title">View state build by the InvoiceRecordEventHandler</h3>
           </div>
           <div class="panel-body">
+            <ul>
             <% InvoiceRecord.all.each do |invoice| %>
-              <%= h invoice.recipient_name %> is invoiced for EUR <%= invoice.amount %>
+              <li><%= h invoice.recipient_name %> is invoiced for EUR <%= invoice.amount %>
             <% end %>
+            </ul>
           </div>
         </div>
       </div>
