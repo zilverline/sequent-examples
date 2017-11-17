@@ -7,11 +7,12 @@ as event store and view model store.
 
 ```sh
 git clone https://github.com/zilverline/sequent-examples
-cd sequent-examples
+cd sequent-examples/sinatra
 bundle install
-rake db:create # creates the sequent database
-rake sequent:upgrade
-rackup -p 4567
+bundle exec rake db:create
+bundle exec rake db:migrate
+bundle exec rake view_schema:build
+bundle exec rackup -p 4567
 ```
 
 ## Rebuilding the events

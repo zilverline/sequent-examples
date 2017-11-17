@@ -1,9 +1,10 @@
 require_relative 'value_objects'
+require_relative 'multitenancy'
 
-class InvoiceCreatedEvent < Sequent::Core::CreateEvent
+class InvoiceCreated < TenantEvent
   attrs amount: Integer, recipient: Recipient
 end
 
-class InvoicePaidEvent < Sequent::Core::TenantEvent
+class InvoicePaid < TenantEvent
   attrs paid_at: Date
 end

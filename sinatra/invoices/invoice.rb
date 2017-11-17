@@ -1,25 +1,25 @@
-require 'sequent'
+require_relative 'multitenancy'
 require_relative 'value_objects'
 
-class Invoice < Sequent::Core::TenantAggregateRoot
+class Invoice < TenantAggregateRoot
 
-  def initialize(id, organization_id, amount, recipient)
-    super id, organization_id
-    apply InvoiceCreatedEvent, amount: amount, recipient: recipient
+  def initialize(id, tenant_id, amount, recipient)
+    super id, tenant_id
+    apply InvoiceCreated, amount: amount, recipient: recipient
   end
 
   def pay(date)
     raise "date must be provided" if date.nil?
     raise "already paid" if @outstanding_amount == 0
-    apply InvoicePaidEvent, paid_at: date
+    apply InvoicePaid, paid_at: date
   end
 
   private
-  on InvoiceCreatedEvent do |event|
+  on InvoiceCreated do |event|
     @outstanding_amount = event.amount
   end
 
-  on InvoicePaidEvent do |_|
+  on InvoicePaid do |_|
     @outstanding_amount = 0
   end
 

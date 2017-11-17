@@ -1,11 +1,11 @@
 require_relative 'value_objects'
+require_relative 'multitenancy'
 
 module InvoiceCommand
 
 end
 
-class CreateInvoiceCommand < Sequent::Core::TenantCommand
-  include Sequent::Core::Helpers::StringSupport
+class CreateInvoice < TenantCommand
   include InvoiceCommand
 
   attrs amount: Integer, recipient: Recipient
@@ -15,10 +15,10 @@ class CreateInvoiceCommand < Sequent::Core::TenantCommand
 
 end
 
-class PayInvoiceCommand < Sequent::Core::TenantCommand
-  include Sequent::Core::Helpers::StringSupport
+class PayInvoice < TenantCommand
   include InvoiceCommand
-  attrs pay_date: DateTime
+
+  attrs pay_date: DateTime, tenant_id: String
 
   validates_presence_of :pay_date
 end

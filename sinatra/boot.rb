@@ -2,12 +2,8 @@ ENV["RACK_ENV"] ||= "development"
 require "bundler"
 Bundler.setup
 
-require_relative 'db/database'
-require_relative 'db/version'
+require 'sequent/support'
+require_relative 'invoicing_app'
+require_relative 'initializers/sequent'
 
-database = Database.for_active_record(ENV["RACK_ENV"], SCHEMA_VERSION)
-database.establish_connection do |config|
-  config['schema_search_path'] = "public"
-end
-database.init
-database.set_schema_search_path_to_current_version
+Sequent::Support::Database.establish_connection(InvoicingApp::DB_CONFIG[ENV["RACK_ENV"]])
