@@ -1,3 +1,0 @@
-require './boot'
-
-run Web
