@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+      <h1 style="margin-bottom: 20px">Sequent powered Blog</h1>
+      <% ([flash[:notice]].flatten.compact).each do |info| %>
+        <div class="alert alert-info" role="alert">
+          <%= h info %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
+</html>

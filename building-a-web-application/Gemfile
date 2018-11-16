@@ -3,10 +3,12 @@ ruby "2.5.1"
 
 gem 'rake'
 # let's use the latest and greatest
-gem 'sequent', git: 'https://github.com/zilverline/sequent'
+gem 'sequent', path: '../../sequent'
 gem 'sinatra'
 gem 'sinatra-flash'
 gem 'sinatra-contrib'
+gem 'activerecord', '~> 5.2.1'
+gem 'activemodel', '~> 5.2.1'
 
 group :test do
   gem 'rspec'

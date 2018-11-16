@@ -1,9 +1,61 @@
-<html>
-  <body>
-    <h1>Author <%= h @author.name %> </h1>
-    <p>Email: <%= h @author.email %></p>
-    <p>
-      <a href="/authors">Show all</a>
-    </p>
-  </body>
-</html>
+<div class="container">
+  <p>
+    <a href="/authors">Back to all authors</a>
+  </p>
+  <h1>Author <%= h @author.name %> </h1>
+
+  <table class="table">
+    <tbody>
+      <% @author.post_records.order(:id).each do |post_record| %>
+        <tr>
+          <td><%= h post_record.title %></td>
+          <td>
+            <a href="<%= "/authors/id/#{@author.aggregate_id}/post/#{post_record.aggregate_id}" %>">
+              <%= h post_record.aggregate_id %>
+            </a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p>Email: <%= h @author.email %></p>
+
+  <form method="post" action="<%= post_action(@command) %>">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input
+        id="title"
+        name="title"
+        type="text"
+        value="<%= h @command&.title %>"
+        class="form-control <%= error_css_class(:title) %>"
+        />
+      <% if has_errors_for(:title) %>
+        <div class="invalid-feedback">
+          <% errors(:title).each do |error| %>
+            <p><%= h error %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea
+        id="content"
+        name="content"
+        rows="10"
+        class="form-control <%= error_css_class(:content) %>"
+      ><%= h @command&.content %></textarea>
+      <% if has_errors_for(:content) %>
+        <div class="invalid-feedback">
+          <% errors(:content).each do |error| %>
+            <p><%= h error %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <button class="btn btn-primary">Save</button>
+  </form>
+</div>

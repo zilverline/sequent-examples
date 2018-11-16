@@ -12,6 +12,11 @@ class Post < Sequent::AggregateRoot
     apply PostPublished, publication_date: publication_date
   end
 
+  def edit(title, content)
+    apply PostTitleChanged, title: title
+    apply PostContentChanged, content: content
+  end
+
   on PostAdded do
   end
 

@@ -1,20 +1,41 @@
-<html>
-  <body>
+<p>
+  <a href="/authors">Show all authors</a>
+</p>
 
-    <p>
-      <a href="/authors">Show all authors</a>
-    </p>
-
-    <form method="post" action="/authors">
-      <div>
-        <label for="name">Name</label>
-        <input id="name" name="name" type="text"/>
+<form method="post" action="/authors">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      value="<%= h @command&.name %>"
+      class="form-control <%= error_css_class(:name) %>"
+    />
+    <% if has_errors_for(:name) %>
+      <div class="invalid-feedback">
+        <% errors(:name).each do |error| %>
+          <p><%= h error %></p>
+        <% end %>
       </div>
-      <div>
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email"/>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      value="<%= h @command&.email %>"
+      class="form-control <%= error_css_class(:email) %>"
+    />
+    <% if has_errors_for(:email) %>
+      <div class="invalid-feedback">
+        <% errors(:email).each do |error| %>
+          <p><%= h error %></p>
+        <% end %>
       </div>
-      <button>Create author</button>
-    </form>
-  </body>
-</html>
+    <% end %>
+  </div>
+  <button class="btn btn-primary">Create author</button>
+</form>
