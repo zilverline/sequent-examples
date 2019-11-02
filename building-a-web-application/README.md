@@ -9,7 +9,7 @@ git clone https://github.com/zilverline/sequent-examples.git
 cd building-a-web-application
 rbenv install
 gem install bundler
-bunde install
+bundle install
 ```
 
 ## Initialize the app
