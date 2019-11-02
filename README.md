@@ -6,5 +6,5 @@ Examples of the [Sequent](https://www.sequent.io) CQRS and Event Sourcing framew
 ## Examples
 
 1. [Building a web application](https://github.com/zilverline/sequent-examples/blob/master/building-a-web-application/README.md) with Sequent
-2. [Rails & Sequent](https://www.sequent.io/docs/rails-sequent.html)
+2. [Rails & Sequent](https://github.com/zilverline/sequent-examples/blob/master/rails-blog/README.md)
 3. More to come

@@ -8,7 +8,7 @@ default: &default
   adapter: postgresql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  schema_search_path: "sequent_schema, view_schema, public"
+  schema_search_path: "public, sequent_schema, view_schema"
 
 development:
   <<: *default
