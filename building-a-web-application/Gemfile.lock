@@ -1,16 +1,16 @@
 PATH
   remote: ../../sequent
   specs:
-    sequent (3.3.1)
-      activemodel (>= 5.0, < 5.3)
-      activerecord (>= 5.0, < 5.3)
+    sequent (3.4.0)
+      activemodel (>= 5.0, <= 6.0)
+      activerecord (>= 5.0, <= 6.0)
       bcrypt (~> 3.1)
-      oj (~> 3.0)
-      parallel (~> 1.12.1)
-      parser (~> 2.5)
-      pg (~> 1.0)
+      oj (~> 3)
+      parallel (~> 1.17)
+      parser (~> 2.6.5)
+      pg (~> 1.1)
       postgresql_cursor (~> 0.6)
-      thread_safe (~> 0.3.5)
+      thread_safe (~> 0.3.6)
 
 GEM
   remote: https://rubygems.org/
@@ -38,14 +38,14 @@ GEM
     minitest (5.13.0)
     multi_json (1.14.1)
     mustermann (1.0.3)
-    oj (3.9.2)
-    parallel (1.12.1)
+    oj (3.10.1)
+    parallel (1.19.1)
     parser (2.6.5.0)
       ast (~> 2.4.0)
-    pg (1.1.4)
+    pg (1.2.2)
     postgresql_cursor (0.6.4)
       activerecord (>= 3.1.0)
-    rack (2.0.7)
+    rack (2.1.1)
     rack-protection (2.0.7)
       rack
     rake (13.0.0)
