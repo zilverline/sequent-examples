@@ -15,7 +15,7 @@ Aantal events: <%= @number_of_events %>
   <% @articles.each do |article| %>
     <tr>
       <td><%= article.title %></td>
-      <td><%= article.text %></td>
+      <td><%= article.content %></td>
       <td><%= link_to 'Show', article_path(article) %></td>
     </tr>
   <% end %>

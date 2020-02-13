@@ -1,4 +1,5 @@
 class AddPost < Sequent::Command
   attrs author: String, title: String, content: String
-  validates_presence_of :author, :title
+  validates :title, presence: true,
+                    length: { minimum: 5 }
 end
