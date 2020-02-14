@@ -2,13 +2,12 @@
 
 class ArticlesController < ApplicationController
   def show
-    @article = Article.find(params[:id])
-
+    @article = PostRecord.find(params[:id])
   end
 
   def index
     @number_of_events = Sequent::Core::EventRecord.count
-    @articles = Article.all
+    @articles = PostRecord.all
   end
 
   def new
@@ -16,20 +15,15 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
-    ActiveRecord::Base.transaction do
-      if @article.save
-        Sequent.command_service.execute_commands AddPost.new(
-          aggregate_id: Sequent.new_uuid,
-          author: 'Ben',
-          title: @article.title,
-          content: @article.text,
-        )
-        redirect_to @article
-      else
-        render 'new'
-      end
-    end
+    Sequent.command_service.execute_commands(
+      AddPost.new(
+        aggregate_id: Sequent.new_uuid,
+        author: 'Ben',
+        title: article_params[:title],
+        content: article_params[:text]
+      )
+    )
+    redirect_to :index
   end
 
   private
