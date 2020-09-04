@@ -1,14 +1,14 @@
 source "https://rubygems.org"
-ruby "2.5.1"
+ruby "2.7.1"
 
 gem 'rake'
 # let's use the latest and greatest
-gem 'sequent', path: '../../sequent'
+gem 'sequent', git: 'https://github.com/zilverline/sequent.git', branch: 'upgrade-to-ruby-2.7'
 gem 'sinatra'
 gem 'sinatra-flash'
 gem 'sinatra-contrib'
-gem 'activerecord', '~> 5.2.1'
-gem 'activemodel', '~> 5.2.1'
+gem 'activerecord', '~> 6.0.2'
+gem 'activemodel', '~> 6.0.2'
 
 group :test do
   gem 'rspec'

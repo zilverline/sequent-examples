@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
         content: article_params[:text]
       )
     )
-    redirect_to :index
+    redirect_to action: 'index'
   end
 
   private
