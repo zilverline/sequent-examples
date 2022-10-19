@@ -19,7 +19,7 @@ bundle install
 
 ## Initialize the app
 
-```
+```bash
 rails db:create
 rails db:migrate
 bundle exec rake sequent:db:create_event_store

@@ -1,6 +1,3 @@
-require 'sequent/migrations/projectors'
-require_relative '../app/sequent/projectors/post_projector'
-
 VIEW_SCHEMA_VERSION = 3
 
 class SequentMigrations < Sequent::Migrations::Projectors
@@ -14,10 +11,10 @@ class SequentMigrations < Sequent::Migrations::Projectors
 
       ],
       '2' => [
-        PostProjector,
+        Projectors::PostProjector,
       ],
       '3' => [
-        PostProjector,
+        Projectors::PostProjector,
       ],
     }
   end
