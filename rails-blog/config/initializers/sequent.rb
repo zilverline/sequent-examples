@@ -1,19 +1,20 @@
-require_relative '../sequent_migrations'
-require_relative '../../app/sequent/lib/post'
+require_relative '../../db/sequent_migrations'
 
-Sequent.configure do |config|
-  config.migrations_class_name = 'SequentMigrations'
+Rails.application.reloader.to_prepare do
+  Sequent.configure do |config|
+    config.migrations_class_name = 'SequentMigrations'
 
-  config.command_handlers = [
-    PostCommandHandler.new,
-  ]
+    config.command_handlers = [
+      Post::PostCommandHandler.new,
+    ]
 
-  config.event_handlers = [
-    PostProjector.new,
-  ]
+    config.event_handlers = [
+      Projectors::PostProjector.new,
+    ]
 
-  config.logger = Logger.new(STDOUT)
+    config.logger = Logger.new(STDOUT)
 
-  config.database_config_directory = 'config'
-  config.migration_sql_files_directory = 'db/sequent'
+    config.database_config_directory = 'config'
+    config.migration_sql_files_directory = 'db/sequent'
+  end
 end
