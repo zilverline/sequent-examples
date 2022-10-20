@@ -3,7 +3,7 @@ ruby "3.1.2"
 
 gem 'rake'
 # let's use the latest and greatest
-gem 'sequent', git: 'https://github.com/zilverline/sequent.git'
+gem 'sequent', git: 'https://github.com/zilverline/sequent.git', branch: 'improve_test_support'
 gem 'sinatra'
 gem 'sinatra-flash'
 gem 'sinatra-contrib'
