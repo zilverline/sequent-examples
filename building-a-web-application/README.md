@@ -32,3 +32,16 @@ bundle exec rackup -p 4567
 ```
 
 Open [localhost:4567](http://localhost:4567)
+
+## Testing
+
+To create the database and tables:
+
+```
+cd building-a-web-application
+RACK_ENV=test bundle exec rake sequent:db:create
+RACK_ENV=test bundle exec rake sequent:db:create_view_schema
+RACK_ENV=test bundle exec rake sequent:migrate:online
+RACK_ENV=test bundle exec rake sequent:migrate:offline
+```
+
