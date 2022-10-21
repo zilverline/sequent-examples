@@ -1,5 +1,4 @@
-require_relative '../../spec_helper'
-require_relative '../../../lib/post'
+require 'spec_helper'
 
 describe PostCommandHandler do
   let(:aggregate_id) { Sequent.new_uuid }

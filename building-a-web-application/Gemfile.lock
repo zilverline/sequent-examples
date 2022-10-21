@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/zilverline/sequent.git
-  revision: 294318a9f474479e4300f2c94806637f4f99ede9
+  revision: e6846d5e239cda2e4a3cc5dedcf2b53887131843
+  branch: improve_test_support
   specs:
     sequent (5.0.0)
       activemodel (>= 5.0, < 7.1)

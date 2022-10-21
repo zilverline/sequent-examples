@@ -8,12 +8,7 @@ require 'database_cleaner'
 
 require_relative '../blog'
 
-db_config = Sequent::Support::Database.read_config('test')
-Sequent::Support::Database.establish_connection(db_config)
-
-Sequent::Support::Database.drop_schema!(Sequent.configuration.view_schema_name)
-
-Sequent::Migrations::ViewSchema.new(db_config: db_config).create_view_tables
+Sequent::Test::DatabaseHelpers.maintain_test_database_schema(env: 'test')
 
 module DomainTests
   def self.included(base)
@@ -38,7 +33,7 @@ RSpec.configure do |config|
 
   config.around do |example|
     Sequent.configuration.aggregate_repository.clear
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean_with(:truncation, {except: Sequent::Migrations::ViewSchema::Versions.table_name})
     DatabaseCleaner.cleaning do
       example.run
     ensure

@@ -13,5 +13,7 @@ development:
 test:
   <<: *database
   pool: 5
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
   database: blog_test
 
