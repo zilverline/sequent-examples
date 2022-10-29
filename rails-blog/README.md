@@ -21,7 +21,7 @@ bundle install
 
 ```bash
 rails db:create
-rails db:migrate
+rails migrate_public_schema
 bundle exec rake sequent:db:create_event_store
 bundle exec rake sequent:db:create_view_schema
 bundle exec rake sequent:migrate:online

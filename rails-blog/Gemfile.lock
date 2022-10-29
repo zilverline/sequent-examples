@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/zilverline/sequent.git
-  revision: 294318a9f474479e4300f2c94806637f4f99ede9
+  revision: af5e5ef393c5c6df8e067452e1f4d297cb8d834a
   specs:
     sequent (5.0.0)
       activemodel (>= 5.0, < 7.1)

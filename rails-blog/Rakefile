@@ -13,9 +13,23 @@ require 'sequent/rake/migration_tasks'
 
 Sequent::Rake::MigrationTasks.new.register_tasks!
 
+# The dependency of sequent:init on :environment ensures the Rails app is loaded
+# when running the sequent migrations. This is needed otherwise
+# the sequent initializer doesn't run which is needed to run
+# these rake tasks.
 task 'sequent:init' => [:environment]
 task 'sequent:migrate:init' => [:sequent_db_connect]
 
 task 'sequent_db_connect' do
   Sequent::Support::Database.connect!(ENV['RACK_ENV'])
 end
+
+# Create custom rake task setting the SEQUENT_MIGRATION_SCHEMAS for
+# running the Rails migrations
+task :migrate_public_schema do
+  ENV['SEQUENT_MIGRATION_SCHEMAS'] = 'public'
+  Rake::Task['db:migrate'].invoke
+end
+
+# Prevent rails db:migrate from being executed directly.
+Rake::Task['db:migrate'].enhance([:'sequent:db:dont_use_db_migrate_directly'])
