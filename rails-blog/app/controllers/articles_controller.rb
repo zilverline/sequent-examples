@@ -14,6 +14,15 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
+  def destroy
+    Sequent.command_service.execute_commands(
+      Post::DestroyPost.new(
+        aggregate_id: params[:id]
+      )
+    )
+    redirect_to action: 'index'
+  end
+
   def create
     Sequent.command_service.execute_commands(
       Post::AddPost.new(

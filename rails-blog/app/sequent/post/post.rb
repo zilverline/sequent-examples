@@ -8,6 +8,10 @@ module Post
       apply PostContentChanged, content: command.content
     end
 
+    def destroy
+      apply PostDestroyed
+    end
+
     on PostAdded do
     end
 
@@ -21,6 +25,9 @@ module Post
 
     on PostContentChanged do |event|
       @content = event.content
+    end
+
+    on PostDestroyed do
     end
   end
 end
