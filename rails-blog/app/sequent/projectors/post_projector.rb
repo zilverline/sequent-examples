@@ -17,5 +17,9 @@ module Projectors
     on Post::PostContentChanged do |event|
       update_all_records(Projections::PostRecord, { aggregate_id: event.aggregate_id }, event.attributes.slice(:content))
     end
+
+    on Post::PostDestroyed do |event|
+      delete_all_records(Projections::PostRecord, event.attributes.slice(:aggregate_id))
+    end
   end
 end
