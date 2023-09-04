@@ -52,7 +52,7 @@ GEM
     pg (1.4.4)
     postgresql_cursor (0.6.4)
       activerecord (>= 3.1.0)
-    rack (2.2.6.2)
+    rack (2.2.8)
     rack-protection (3.0.2)
       rack
     rake (13.0.6)
