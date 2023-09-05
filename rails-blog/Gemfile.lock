@@ -162,7 +162,7 @@ GEM
       timeout
     net-smtp (0.3.2)
       net-protocol
-    nio4r (2.5.8)
+    nio4r (2.5.9)
     nokogiri (1.15.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -180,7 +180,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (5.0.0)
-    puma (5.6.5)
+    puma (5.6.7)
       nio4r (~> 2.0)
     racc (1.7.1)
     rack (2.2.8)
@@ -280,7 +280,7 @@ DEPENDENCIES
   octokit
   pg (~> 1.4, >= 1.4.3)
   pry
-  puma (~> 5.0)
+  puma (~> 5.6)
   rack-oauth2
   rails (~> 7.0.3, >= 7.0.3.1)
   redis (~> 4.0)
