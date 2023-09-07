@@ -2,12 +2,12 @@
 
 class ArticlesController < ApplicationController
   def show
-    @article = Projections::PostRecord.find(params[:id])
+    @article = PostRecord.find(params[:id])
   end
 
   def index
     @number_of_events = Sequent::Core::EventRecord.count
-    @articles = Projections::PostRecord.all
+    @articles = PostRecord.all
   end
 
   def new
@@ -16,7 +16,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     Sequent.command_service.execute_commands(
-      Post::DestroyPost.new(
+      Post::Commands::DestroyPost.new(
         aggregate_id: params[:id]
       )
     )
@@ -25,7 +25,7 @@ class ArticlesController < ApplicationController
 
   def create
     Sequent.command_service.execute_commands(
-      Post::AddPost.new(
+      Post::Commands::AddPost.new(
         aggregate_id: Sequent.new_uuid,
         author: 'Ben',
         title: article_params[:title],

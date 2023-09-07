@@ -9,7 +9,7 @@ Rails.application.reloader.to_prepare do
     ]
 
     config.event_handlers = [
-      Projectors::PostProjector.new,
+      Post::PostProjector.new,
     ]
 
     config.logger = Logger.new(STDOUT)
