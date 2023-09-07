@@ -26,6 +26,7 @@ bundle exec rake sequent:db:create_event_store
 bundle exec rake sequent:db:create_view_schema
 bundle exec rake sequent:migrate:online
 bundle exec rake sequent:migrate:offline
+rails s
 ```
 
 Open [http://localhost:3000/articles](http://localhost:3000/articles)
