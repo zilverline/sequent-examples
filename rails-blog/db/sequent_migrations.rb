@@ -11,10 +11,10 @@ class SequentMigrations < Sequent::Migrations::Projectors
 
       ],
       '2' => [
-        Projectors::PostProjector,
+        Post::PostProjector,
       ],
       '3' => [
-        Projectors::PostProjector,
+        Post::PostProjector,
       ],
     }
   end
