@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/zilverline/sequent.git
-  revision: 860be1fca65dcdc2faaa1ac4245a30cb4caccd93
+  revision: 4387610ef7fc7dbaa0ffdb724d968fdb0d5e19ae
   specs:
-    sequent (6.0.0)
+    sequent (6.0.2)
       activemodel (>= 5.0, < 7.1)
       activerecord (>= 5.0, < 7.1)
       bcrypt (~> 3.1)
@@ -309,7 +309,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.1.2p20
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.3.23
