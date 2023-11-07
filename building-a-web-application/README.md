@@ -39,11 +39,11 @@ To create the test database:
 
 ```
 cd building-a-web-application
-RACK_ENV=test bundle exec rake sequent:db:create
+SEQUENT_ENV=test bundle exec rake sequent:db:create
 ```
 
 And running the spec:
 
 ```
-RACK_ENV=test bundle exec rspec
+SEQUENT_ENV=test bundle exec rspec
 ```
