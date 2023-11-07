@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/zilverline/sequent.git
-  revision: 4387610ef7fc7dbaa0ffdb724d968fdb0d5e19ae
+  revision: 498812fb86edd319310be5b6ea2d53719e81cf14
   specs:
-    sequent (6.0.2)
-      activemodel (>= 5.0, < 7.1)
-      activerecord (>= 5.0, < 7.1)
+    sequent (7.0.1)
+      activemodel (>= 5.0, < 7.2)
+      activerecord (>= 5.0, < 7.2)
       bcrypt (~> 3.1)
       i18n
       oj (~> 3)

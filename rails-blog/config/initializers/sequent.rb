@@ -3,14 +3,7 @@ require_relative '../../db/sequent_migrations'
 Rails.application.reloader.to_prepare do
   Sequent.configure do |config|
     config.migrations_class_name = 'SequentMigrations'
-
-    config.command_handlers = [
-      Post::PostCommandHandler.new,
-    ]
-
-    config.event_handlers = [
-      Post::PostProjector.new,
-    ]
+    config.enable_autoregistration = true
 
     config.logger = Logger.new(STDOUT)
 
