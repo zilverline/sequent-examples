@@ -14,7 +14,7 @@ class AuthorProjector < Sequent::Projector
   on AuthorNameSet do |event|
     update_all_records(
       AuthorRecord,
-      {aggregate_id: event.aggregate_id},
+      { aggregate_id: event.aggregate_id },
       event.attributes.slice(:name)
     )
   end
@@ -22,7 +22,7 @@ class AuthorProjector < Sequent::Projector
   on AuthorEmailSet do |event|
     update_all_records(
       AuthorRecord,
-      {aggregate_id: event.aggregate_id},
+      { aggregate_id: event.aggregate_id },
       event.attributes.slice(:email)
     )
   end

@@ -1,23 +1,27 @@
-<p>
-  Back to <a href="/">index</a>
-</p>
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>E-mail</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @authors.each do |author| %>
-      <tr>
-        <td>
-          <a href="/authors/id/<%= author.aggregate_id %>"><%= h author.aggregate_id %></a>
-        </td>
-        <td><%= h author.name %></td>
-        <td><%= h author.email %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<html>
+  <body>
+    <p>
+      Back to <a href="/">index</a>
+    </p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>E-mail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @authors.each do |author| %>
+          <tr>
+            <td>
+              <a href="/authors/<%= author.aggregate_id %>"><%= h author.aggregate_id %></a>
+            </td>
+            <td><%= h author.name %></td>
+            <td><%= h author.email %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </body>
+</html>

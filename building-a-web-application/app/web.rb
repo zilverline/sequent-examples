@@ -1,6 +1,6 @@
 require 'sinatra/base'
-require 'sinatra/flash'
-require 'sinatra/reloader'
+require 'sinatra/flash' # for displaying flash messages
+require 'sinatra/reloader' # for hot reloading changes
 require_relative '../blog'
 
 class Web < Sinatra::Base
@@ -12,11 +12,21 @@ class Web < Sinatra::Base
   end
 
   after do
-    ActiveRecord::Base.clear_active_connections!
+    Sequent::ApplicationRecord.connection_handler.clear_active_connections!
   end
 
   get '/' do
     erb :index
+  end
+
+  get '/authors' do
+    @authors = AuthorRecord.all
+    erb :'authors/index'
+  end
+
+  get '/authors/:author_id' do
+    @author = AuthorRecord.find_by(aggregate_id: params[:author_id])
+    erb :'authors/show'
   end
 
   post '/authors' do
@@ -25,23 +35,13 @@ class Web < Sinatra::Base
     Sequent.command_service.execute_commands @command
 
     flash[:notice] = 'Account created'
-    redirect "/authors/id/#{author_id}"
+    redirect "/authors/#{author_id}"
   rescue Sequent::Core::CommandNotValid => e
     @errors = e.errors
     erb :index
   rescue Usernames::UsernameAlreadyRegistered
     @errors = {email: ['already registered, please choose another']}
     erb :index
-  end
-
-  get '/authors/id/:author_id' do
-    @author = AuthorRecord.find_by(aggregate_id: params[:author_id])
-    erb :'authors/show'
-  end
-
-  get '/authors' do
-    @authors = AuthorRecord.all
-    erb :'authors/index'
   end
 
   post '/authors/id/:author_id/post' do
@@ -91,6 +91,12 @@ class Web < Sinatra::Base
     erb :'authors/show'
   end
 
+  helpers do
+    def post_action(command)
+      @command&.is_a?(EditPost) ? "/authors/id/#{params[:author_id]}/post/#{command.aggregate_id}" : "/authors/id/#{params[:author_id]}/post"
+    end
+  end
+
   helpers ERB::Util
 
   helpers do
@@ -104,10 +110,6 @@ class Web < Sinatra::Base
 
     def error_css_class(attribute)
       has_errors_for(attribute) ? 'is-invalid' : ''
-    end
-
-    def post_action(command)
-      @command&.is_a?(EditPost) ? "/authors/id/#{params[:author_id]}/post/#{command.aggregate_id}" : "/authors/id/#{params[:author_id]}/post"
     end
   end
 end

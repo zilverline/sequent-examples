@@ -11,18 +11,18 @@ describe AuthorCommandHandler do
     let(:user_aggregate_id) { Sequent.new_uuid }
     let(:email) { 'ben@sequent.io' }
 
-    it 'creates a user when valid input' do
-      when_command AddAuthor.new(aggregate_id: user_aggregate_id, name: 'Ben', email: email)
+    it "creates a user when valid input" do
+      when_command AddAuthor.new(aggregate_id: user_aggregate_id, name: "Ben", email: email)
       then_events UsernamesCreated.new(aggregate_id: Usernames::ID, sequence_number: 1),
-        UsernameAdded.new(aggregate_id: Usernames::ID, username: email, sequence_number: 2),
-        AuthorCreated.new(aggregate_id: user_aggregate_id, sequence_number: 1),
-        AuthorNameSet,
-        AuthorEmailSet.new(aggregate_id: user_aggregate_id, email: email, sequence_number: 3)
+                  UsernameAdded.new(aggregate_id: Usernames::ID, username: email, sequence_number: 2),
+                  AuthorCreated.new(aggregate_id: user_aggregate_id, sequence_number: 1),
+                  AuthorNameSet,
+                  AuthorEmailSet.new(aggregate_id: user_aggregate_id, email: email, sequence_number: 3)
     end
 
-    it 'fails if the username already exists' do
+    it "fails if the username already exists" do
       given_events UsernamesCreated.new(aggregate_id: Usernames::ID, sequence_number: 1),
-        UsernameAdded.new(aggregate_id: Usernames::ID, username: email, sequence_number: 2)
+                   UsernameAdded.new(aggregate_id: Usernames::ID, username: email, sequence_number: 2)
       expect {
         when_command AddAuthor.new(
           aggregate_id: Sequent.new_uuid,
@@ -32,9 +32,9 @@ describe AuthorCommandHandler do
       }.to raise_error Usernames::UsernameAlreadyRegistered
     end
 
-    it 'ignores case in usernames' do
+    it "ignores case in usernames" do
       given_events UsernamesCreated.new(aggregate_id: Usernames::ID, sequence_number: 1),
-        UsernameAdded.new(aggregate_id: Usernames::ID, username: email, sequence_number: 2)
+                   UsernameAdded.new(aggregate_id: Usernames::ID, username: email, sequence_number: 2)
       expect {
         when_command AddAuthor.new(
           aggregate_id: Sequent.new_uuid,
@@ -43,5 +43,7 @@ describe AuthorCommandHandler do
         )
       }.to raise_error Usernames::UsernameAlreadyRegistered
     end
+
   end
+
 end
