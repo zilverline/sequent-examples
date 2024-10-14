@@ -9,5 +9,4 @@ class Author < Sequent::AggregateRoot
   on AuthorCreated do
 
   end
-
 end

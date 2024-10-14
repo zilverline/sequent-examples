@@ -1,16 +1,26 @@
+<!doctype html>
 <html>
-  <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  </head>
-  <body>
-    <div class="container">
-      <h1 style="margin-bottom: 20px">Sequent powered Blog</h1>
-      <% ([flash[:notice]].flatten.compact).each do |info| %>
-        <div class="alert alert-info" role="alert">
-          <%= h info %>
-        </div>
-      <% end %>
-      <%= yield %>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand" href="#">Sequent powered Blog</a>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <a class="nav-link" href="/">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/authors">Authors</a>
+    </li>
+  </ul>
+</nav>
+<main role="main" class="container">
+  <% ([flash[:notice]].flatten.compact).each do |info| %>
+    <div class="alert alert-info" role="alert">
+      <%= h info %>
     </div>
-  </body>
-</html>
+  <% end %>
+  <%= yield %>
+</main></body></html>
