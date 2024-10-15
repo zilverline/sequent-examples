@@ -1,10 +1,9 @@
-<h1>Listing articles</h1>
+<h1>Articles</h1>
 
 <p>
-Aantal events: <%= @number_of_events %>
+Number of events: <%= @number_of_events %>
 </p>
 
-<%= link_to 'New article', new_article_path %>
 <table>
   <tr>
     <th>Title</th>
@@ -21,3 +20,5 @@ Aantal events: <%= @number_of_events %>
     </tr>
   <% end %>
 </table>
+
+<%= link_to 'New article', new_article_path %>

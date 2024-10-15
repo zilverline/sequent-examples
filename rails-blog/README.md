@@ -1,11 +1,14 @@
 # Rails & Sequent
 
 This is an example project on how to add Sequent to an existing Rails application.
-This Rails application is the one created from the [Rails Getting Started Guide](https://guides.rubyonrails.org/getting_started.html).
+This Rails application is weblog application created from the 
+[Rails Getting Started Guide](https://guides.rubyonrails.org/getting_started.html) 
+(up to [deleting an Article](https://guides.rubyonrails.org/getting_started.html#deleting-an-article)).
 
-As a final step Sequent is added and for each `Article` also a `Post` is created. This of course would not make any sense, but it just a demonstration on how to add Sequent to a Rails application.
+On top of this, Sequent is added. The example is modified so that Articles in the application are synonymous for 
+PostsRecords. This doesn't really makes much sense but it just a demonstration on how to add Sequent to a Rails application.
 
-See [Rails & Sequent](https://www.sequent.io/docs/rails-sequent.html) for the full step-by-step guide.
+See [Rails & Sequent](https://sequent.io/docs/rails-sequent.html) for the full step-by-step guide.
 
 ## Setup your environment
 
