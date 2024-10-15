@@ -1,14 +1,12 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
 default: &default
   adapter: postgresql
+  host: localhost
+  port: 5432
+  username: <%= ENV["POSTGRES_USER"] || "postgres" %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  schema_search_path: <%= ENV['SEQUENT_MIGRATION_SCHEMAS'] || 'public, sequent_schema, view_schema' %>
+  schema_search_path: <%= ENV.fetch("SEQUENT_MIGRATION_SCHEMAS") { "public, sequent_schema, view_schema" } %>
 
 development:
   <<: *default
@@ -20,3 +18,7 @@ development:
 test:
   <<: *default
   database: blog_rails_sequent_test
+
+production:
+  <<: *default
+  database: blog_rails_sequent_production
