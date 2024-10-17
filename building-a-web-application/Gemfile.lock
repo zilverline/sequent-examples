@@ -53,7 +53,7 @@ GEM
     postgresql_cursor (0.6.8)
       activerecord (>= 6.0)
     racc (1.7.3)
-    rack (2.2.8)
+    rack (2.2.8.1)
     rack-protection (3.0.4)
       rack
     rake (13.0.6)
