@@ -12,12 +12,12 @@ class Migrations < Sequent::Migrations::Projectors
       '1' => [
         PostProjector
       ],
-      '2' => [
+      '2' => [ # Projectors that need to be rebuild:
         AuthorProjector
       ],
       '3' => [
         PostProjector
-      ],
+      ]
     }
   end
 end

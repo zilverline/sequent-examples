@@ -9,11 +9,7 @@ class PostProjector < Sequent::Projector
   end
 
   on PostAuthorChanged do |event|
-    update_all_records(
-      PostRecord,
-      {aggregate_id: event.aggregate_id},
-      event.attributes.slice(:author_aggregate_id)
-    )
+    update_all_records(PostRecord, {aggregate_id: event.aggregate_id}, event.attributes.slice(:author_aggregate_id))
   end
 
   on PostTitleChanged do |event|

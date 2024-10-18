@@ -7,8 +7,10 @@ class Post < Sequent::AggregateRoot
     apply PostContentChanged, content: command.content
   end
 
+  class PostAlreadyPublishedError < StandardError; end
+
   def publish(publication_date)
-    fail PostAlreadyPubishedError if @publication_date.any?
+    fail PostAlreadyPublishedError if @publication_date.present?
     apply PostPublished, publication_date: publication_date
   end
 
@@ -30,5 +32,9 @@ class Post < Sequent::AggregateRoot
 
   on PostContentChanged do |event|
     @content = event.content
+  end
+
+  on PostPublished do |event|
+    @publication_date = event.publication_date
   end
 end
