@@ -30,5 +30,4 @@ class Usernames < Sequent::AggregateRoot
   on UsernameAdded do |event|
     @usernames << event.username.downcase
   end
-
 end
