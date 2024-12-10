@@ -6,16 +6,16 @@
 
   <table class="table">
     <tbody>
-      <% @author.post_records.order(:id).each do |post_record| %>
-        <tr>
-          <td><%= h post_record.title %></td>
-          <td>
-            <a href="<%= "/authors/id/#{@author.aggregate_id}/post/#{post_record.aggregate_id}" %>">
-              <%= h post_record.aggregate_id %>
-            </a>
-          </td>
-        </tr>
-      <% end %>
+    <% @author.post_records.order(:id).each do |post_record| %>
+      <tr>
+        <td><%= h post_record.title %></td>
+        <td>
+          <a href="<%= "/authors/id/#{@author.aggregate_id}/post/#{post_record.aggregate_id}" %>">
+            <%= h post_record.aggregate_id %>
+          </a>
+        </td>
+      </tr>
+    <% end %>
     </tbody>
   </table>
 

@@ -33,7 +33,7 @@ RSpec.configure do |config|
 
   config.around do |example|
     Sequent.configuration.aggregate_repository.clear
-    DatabaseCleaner.clean_with(:truncation, {except: Sequent::Migrations::ViewSchema::Versions.table_name})
+    DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.cleaning do
       example.run
     ensure
