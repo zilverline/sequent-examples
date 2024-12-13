@@ -2,8 +2,6 @@ default: &default
   adapter: postgresql
   host: localhost
   port: 5432
-  username: <%= ENV["POSTGRES_USER"] || "postgres" %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   schema_search_path: <%= ENV.fetch("SEQUENT_MIGRATION_SCHEMAS") { "public, sequent_schema, view_schema" } %>
