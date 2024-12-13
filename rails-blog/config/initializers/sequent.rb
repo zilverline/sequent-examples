@@ -4,7 +4,6 @@ Rails.application.reloader.to_prepare do
   Sequent.configure do |config|
     config.migrations_class_name = 'SequentMigrations'
     config.enable_autoregistration = true
-    config.event_store_cache_event_types = !Rails.env.development?
 
     config.database_config_directory = 'config'
 
